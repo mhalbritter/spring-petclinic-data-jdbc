@@ -16,11 +16,63 @@
 package org.springframework.samples.petclinic.vet;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Maciej Walkowiak
  */
-public record VetDto(Long id, String firstName, String lastName, List<Specialty> specialties) {
+public final class VetDto {
+	private final Long id;
+	private final String firstName;
+	private final String lastName;
+	private final List<Specialty> specialties;
+
+	public VetDto(Long id, String firstName, String lastName, List<Specialty> specialties) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.specialties = specialties;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public List<Specialty> getSpecialties() {
+		return specialties;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		VetDto vetDto = (VetDto) o;
+		return Objects.equals(id, vetDto.id) && Objects.equals(firstName, vetDto.firstName)
+				&& Objects.equals(lastName, vetDto.lastName) && Objects.equals(specialties, vetDto.specialties);
+	}
+
+	@Override
+	public String toString() {
+		return "VetDto{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
+				+ ", specialties=" + specialties + '}';
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, firstName, lastName, specialties);
+	}
 
 	public int getNrOfSpecialties() {
 		return specialties.size();

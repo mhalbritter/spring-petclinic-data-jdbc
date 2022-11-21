@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import java.util.Objects;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -23,5 +24,43 @@ import org.springframework.data.annotation.Id;
  * @author Juergen Hoeller
  * @author Maciej Walkowiak
  */
-public record PetType(@Id Long id, String name) {
+public final class PetType {
+	private final @Id Long id;
+
+	private final String name;
+
+	public PetType(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public String toString() {
+		return "PetType{" + "id=" + id + ", name='" + name + '\'' + '}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		PetType petType = (PetType) o;
+		return Objects.equals(id, petType.id) && Objects.equals(name, petType.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
 }

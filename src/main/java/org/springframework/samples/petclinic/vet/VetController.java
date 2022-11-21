@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,7 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Maciej Walkowiak
  */
 @Controller
-@RegisterReflectionForBinding(VetDto.class)
 class VetController {
 
 	private final VetRepository vets;
@@ -64,7 +61,7 @@ class VetController {
 	}
 
 	private VetDto vetToVetDto(Vet v) {
-		var specialtyList = v.getSpecialties().stream().map(s -> specialties.findById(s.specialty()))
+		List<Specialty> specialtyList = v.getSpecialties().stream().map(s -> specialties.findById(s.getSpecialty()))
 				.collect(Collectors.toList());
 		return new VetDto(v.getId(), v.getFirstName(), v.getLastName(), specialtyList);
 	}

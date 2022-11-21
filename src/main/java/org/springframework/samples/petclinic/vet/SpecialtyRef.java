@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.vet;
 
+import java.util.Objects;
 import org.springframework.data.relational.core.mapping.Table;
 
 /**
@@ -23,5 +24,37 @@ import org.springframework.data.relational.core.mapping.Table;
  * @author Maciej Walkowiak
  */
 @Table("VET_SPECIALTY")
-public record SpecialtyRef(Long specialty) {
+public final class SpecialtyRef {
+	private final Long specialty;
+
+	public SpecialtyRef(Long specialty) {
+		this.specialty = specialty;
+	}
+
+	public Long getSpecialty() {
+		return specialty;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
+		if (obj == null || obj.getClass() != this.getClass()) {
+			return false;
+		}
+		SpecialtyRef that = (SpecialtyRef) obj;
+		return Objects.equals(this.specialty, that.specialty);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(specialty);
+	}
+
+	@Override
+	public String toString() {
+		return "SpecialtyRef[" + "specialty=" + specialty + ']';
+	}
+
 }

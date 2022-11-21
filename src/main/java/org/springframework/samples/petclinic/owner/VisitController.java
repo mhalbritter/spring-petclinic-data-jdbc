@@ -16,7 +16,7 @@
 package org.springframework.samples.petclinic.owner;
 
 import java.util.Map;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.samples.petclinic.visit.Visit;
 import org.springframework.samples.petclinic.visit.VisitRepository;
 import org.springframework.stereotype.Controller;
@@ -64,7 +64,7 @@ class VisitController {
 	 */
 	@ModelAttribute("visit")
 	public Visit loadPetWithVisit(@PathVariable("petId") Integer petId, Map<String, Object> model) {
-		var pet = this.pets.findById(petId);
+		Pet pet = this.pets.findById(petId);
 		model.put("pet", pet);
 		model.put("owner", this.owners.findById(pet.getOwner()));
 		Visit visit = new Visit();

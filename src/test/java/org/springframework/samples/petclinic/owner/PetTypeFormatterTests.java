@@ -50,7 +50,7 @@ public class PetTypeFormatterTests {
 
 	@Test
 	public void testPrint() {
-		var petType = new PetType(3L, "Hamster");
+		PetType petType = new PetType(3L, "Hamster");
 		String petTypeName = this.petTypeFormatter.print(petType, Locale.ENGLISH);
 		assertThat(petTypeName).isEqualTo("Hamster");
 	}
@@ -59,7 +59,7 @@ public class PetTypeFormatterTests {
 	public void shouldParse() throws ParseException {
 		Mockito.when(this.pets.findPetTypes()).thenReturn(makePetTypes());
 		PetType petType = petTypeFormatter.parse("Bird", Locale.ENGLISH);
-		assertThat(petType.name()).isEqualTo("Bird");
+		assertThat(petType.getName()).isEqualTo("Bird");
 	}
 
 	@Test

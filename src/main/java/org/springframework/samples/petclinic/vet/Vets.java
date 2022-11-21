@@ -16,13 +16,46 @@
 package org.springframework.samples.petclinic.vet;
 
 import java.util.List;
+import java.util.Objects;
+import org.springframework.web.servlet.view.xml.MarshallingView;
 
 /**
  * Simple domain object representing a list of veterinarians. Mostly here to be used for the 'vets'
- * {@link org.springframework.web.servlet.view.xml.MarshallingView}.
+ * {@link MarshallingView}.
  *
  * @author Arjen Poutsma
  * @author Maciej Walkowiak
  */
-public record Vets(List<VetDto> vets) {
+public final class Vets {
+	private final List<VetDto> vets;
+
+	public Vets(List<VetDto> vets) {
+		this.vets = vets;
+	}
+
+	public List<VetDto> getVets() {
+		return vets;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Vets vets1 = (Vets) o;
+		return Objects.equals(vets, vets1.vets);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(vets);
+	}
+
+	@Override
+	public String toString() {
+		return "Vets{" + "vets=" + vets + '}';
+	}
 }

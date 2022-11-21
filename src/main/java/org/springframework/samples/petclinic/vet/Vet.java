@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import jakarta.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -63,7 +63,7 @@ public class Vet implements Serializable {
 	}
 
 	public void addSpecialty(Specialty specialty) {
-		getSpecialtiesInternal().add(new SpecialtyRef(specialty.id()));
+		getSpecialtiesInternal().add(new SpecialtyRef(specialty.getId()));
 	}
 
 	public Long getId() {

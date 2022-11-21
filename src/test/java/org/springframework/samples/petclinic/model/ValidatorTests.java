@@ -19,8 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Locale;
 import java.util.Set;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validator;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.samples.petclinic.owner.Owner;
@@ -33,7 +33,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 public class ValidatorTests {
 
 	private Validator createValidator() {
-		var localValidatorFactoryBean = new LocalValidatorFactoryBean();
+		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
 		localValidatorFactoryBean.afterPropertiesSet();
 		return localValidatorFactoryBean;
 	}
@@ -42,17 +42,17 @@ public class ValidatorTests {
 	public void shouldNotValidateWhenFirstNameEmpty() {
 
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		var person = new Owner();
+		Owner person = new Owner();
 		person.setFirstName("");
 		person.setLastName("smith");
 		person.setAddress("some address");
 		person.setCity("some city");
 		person.setTelephone("9998882221");
 
-		var constraintViolations = createValidator().validate(person);
+		Set<ConstraintViolation<Owner>> constraintViolations = createValidator().validate(person);
 
 		assertThat(constraintViolations.size()).isEqualTo(1);
-		var violation = constraintViolations.iterator().next();
+		ConstraintViolation<Owner> violation = constraintViolations.iterator().next();
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("firstName");
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 	}
